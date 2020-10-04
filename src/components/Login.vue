@@ -1,48 +1,67 @@
 <template>
-  <div class="login">
-    <h1 class="title">Login in the page</h1>
+  <div class="loginComponent">
+    <h1 class="title">Iniciar Sesión</h1>
     <form action class="form">
-      <label class="form-label" for="#email">Email:</label>
-      <!-- Creo que el v-model debiese ser username -->
+      <label class="form-label" for="#username">Usuario:</label>
       <input
-        v-model="username"
+        v-model="login.username"
         class="form-input"
         type="text"
-        id="username"
+        
         required
         placeholder="Username"
       />
       <label class="form-label" for="#password">Password:</label>
       <input
-        v-model="password"
+        v-model="login.password"
         class="form-input"
         type="password"
-        id="password"
+        
         placeholder="Password"
       />
-      <p v-if="error" class="error">Datos incorrectos</p>
-      <input class="form-submit" type="submit" value="Login" />
+      <!-- <p v-if="error" class="error">Datos incorrectos</p> -->
+      <!-- <input @click="submit()" class="form-submit" type="submit" value="Login" /> -->
+      <button @click="submit()" class="form-submit">Login</button>
     </form>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
-  data: () => ({
-    username: "",
-    password: "",
-  }),
-  methods: {
-    login() {
-      console.log(this.username);
-      console.log(this.password);
-    },
+  props: {
+    nombre: String
   },
-};
+  data () {
+    return {
+      login: {
+        username: '',
+        password: ''
+      }
+    }
+  },
+  methods: {
+    submit () {
+      axios
+        .post('http://localhost:5000/api/v1/Login/Login', this.login)
+        .then(result => {
+          const TOKEN = result.data.token
+          const NAMEUSER = result.data.nameUser
+          localStorage.setItem('token', TOKEN)
+          localStorage.setItem('nameUser', NAMEUSER)
+          this.$router.push({ name: 'Home' })
+        })
+        .catch(error => {
+          console.error(error)
+        })
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>
-.login {
+.register {
   padding: 2rem;
 }
 .title {
@@ -91,5 +110,9 @@ export default {
   &:hover {
     background: #0b9185;
   }
+}
+.error {
+  margin: 1rem 0 0;
+  color: #ff4a96;
 }
 </style>
