@@ -3,10 +3,21 @@
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
+      <LogoutComponent/>
     </div>
     <router-view/>
   </div>
 </template>
+
+<script>
+import LogoutComponent from "@/components/LogoutComponent.vue";
+
+export default {
+  components: {
+    LogoutComponent
+  }
+}
+</script>
 
 <style lang="scss">
 #app {

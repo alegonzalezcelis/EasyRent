@@ -21,7 +21,7 @@
       />
       <!-- <p v-if="error" class="error">Datos incorrectos</p> -->
       <!-- <input @click="submit()" class="form-submit" type="submit" value="Login" /> -->
-      <button @click="submit()" class="form-submit">Login</button>
+      <button @click="submit()" class="form-submit">Iniciar Sesión</button>
     </form>
   </div>
 </template>
@@ -47,7 +47,7 @@ export default {
         .post('http://localhost:5000/api/v1/Login/Login', this.login)
         .then(result => {
           const TOKEN = result.data.token
-          const NAMEUSER = result.data.nameUser
+          const NAMEUSER = result.data.userName
           localStorage.setItem('token', TOKEN)
           localStorage.setItem('nameUser', NAMEUSER)
           this.$router.push({ name: 'Home' })
@@ -61,6 +61,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+#prueba-h2 {
+  color: #ff4a96;
+}
+
 .register {
   padding: 2rem;
 }

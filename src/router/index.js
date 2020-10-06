@@ -8,7 +8,12 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
+    path: '/',
+    name: 'Home',
+    component: Home
+  },
+  {
+    path: "/login",
     name: "Login",
     component: Authentication,
   },
@@ -16,11 +21,6 @@ const routes = [
     path: "/register",
     name: "Register",
     component: Register,
-  },
-  {
-    path: '/home',
-    name: 'Home',
-    component: Home
   },
   {
     path: "/about",
@@ -39,13 +39,44 @@ const router = new VueRouter({
   routes,
 });
 
+// router.beforeResolve((to, from, next) => {
+//   if(to.name !== 'Login' ){
+//     const obtainToken = localStorage.getItem('token')
+//     if (obtainToken) {
+//       next({name: 'home'})
+//     }else{
+//       next({name: 'login'})
+//     }
+//   }else {
+//     next()
+//   }
+
+// })
+
+
+// Protección de Ruta
 router.beforeEach((to, from, next) => {
-  if (to.name === "Home") {
-    console.log("Voy a home");
-    if (localStorage.getItem("token") === null) next({ name: "Login" });
+  const session = (localStorage.getItem('token') !== null) ? true : false;
+  if (to.name === 'Login' && session) next({ name: 'Home' })
+  else if (to.name !== 'Login' && !session) next({ name: 'Login' })
+  else {
     next();
   }
-  next();
 });
+
+// Posible Logout
+
+// const router = new VueRouter({ 
+//   routes: [ 
+//       { 
+//           path: '/login', 
+//           component: LoginView, 
+//           beforeEnter: (to, from, next) => { 
+//               delete localStorage.token;
+//               next();  
+//           } 
+//       } 
+//   ] 
+// });
 
 export default router;
