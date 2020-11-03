@@ -1,17 +1,28 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
-import Authentication from "../views/Authentication.vue";
-import Register from "../views/Register";
+import Vue from "vue"
+import VueRouter from "vue-router"
+import Home from "../views/Home.vue"
+import Authentication from "../views/Authentication.vue"
+import Register from "../views/Register"
+import Agregar from "../views/Agregar"
 
-Vue.use(VueRouter);
+Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
   },
+  {
+    path: '/agregar',
+    name: 'Agregar',
+    component: Agregar,
+  },
+  // {
+  //   path: "/edit/:id",
+  //   name: "EditDepartamento",
+  //   component: EditDepartamento
+  // },
   {
     path: "/login",
     name: "Login",

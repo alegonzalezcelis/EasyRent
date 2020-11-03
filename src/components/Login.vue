@@ -16,7 +16,6 @@
         v-model="login.password"
         class="form-input"
         type="password"
-        
         placeholder="Password"
       />
       <!-- <p v-if="error" class="error">Datos incorrectos</p> -->
